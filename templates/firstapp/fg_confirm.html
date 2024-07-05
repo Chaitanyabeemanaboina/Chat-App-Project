@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'fg_confirm.css' %}">
+</head>
+<body>
+<div id="main" align="center">
+    <h1 id="reset" >Reset Password</h1>
+    <form id="main_form" method="post">
+    {{form.as_p}}
+    {% csrf_token %}
+    <input id="form_inp" type="submit" value="Submit">
+        </form><br>
+    <a id="back" href="/accounts/login">Back</a>
+</div>
+</body>
+</html>

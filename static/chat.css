@@ -1,0 +1,90 @@
+
+body{
+    background-image: url('/static/images/chatapp_chatpage.jpg');
+    background-size: cover;
+}
+div#chat_css {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div#name {
+    display: flex;
+    justify-content: center;
+}
+div#chat_css {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input#chat_button {
+    display: inline-block;
+    height: 39px;
+    width: 69px;
+    position: relative;
+    left: 199px;
+    background-color: darkgray;
+    border: 0px;
+}
+input#image {
+    position: relative;
+    top: 45px;
+    right: 100px;
+}
+button#img_button {
+    position: relative;
+    top: 45px;
+    right: 268px;
+    width: 150px;
+}
+a#home {
+    position: relative;
+    top: 40px;
+}
+h2#status {
+    margin: 0px;
+    height: 40px;
+    width: 400px;
+    background-color: darkgray;
+    font-size: 30px;
+    padding-top: 6px;
+    font-family: sans-serif;
+    border-radius: 10px;
+}
+input#chat_input {
+    width: 336px;
+    height: 37px;
+    position: relative;
+    left: 211px;
+    border: 0px;
+    border-radius: 10px;
+}
+div#chat {
+    height: 400px;
+    width: 5000px;
+    overflow-y: scroll;
+    color: yellow;
+    font-size: 24px;
+    font-family: system-ui;
+    font-weight: 800;
+    border-radius: 10px;
+}
+a#home {
+    display: inline-block;
+    position: relative;
+    top: 40px;
+    background-color: darkgray;
+    text-decoration-line: none;
+    height: 40px;
+    width: 100px;
+    color: black;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: 900;
+    border-radius: 10px;
+    padding-top: 6px;
+}
+h1#head {
+    background-color: darkgray;
+    font-family: system-ui;
+}

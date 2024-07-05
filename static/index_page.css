@@ -1,0 +1,174 @@
+
+body{
+    background-image: url('/static/images/chatapp_homepage.jpg');
+    background-size: cover;
+}
+div#navbar {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: black;
+    color: white;
+    height: 70px;
+    position: relative;
+    bottom: 10px;
+}
+h1#name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 100px;
+    font-family: math;
+}
+h3#welcome {
+    position: relative;
+    left: 200px;
+    display: flex;
+    margin: 0px;
+    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+    font-family: math;
+}
+a#logout {
+    position: relative;
+    left: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration-line: blink;
+    background-color: white;
+    height: 40px;
+    margin-top: 15px;
+    width: 100px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: math;
+    color: black;
+    font-weight: bolder;
+}
+input#notify {
+    height: 40px;
+    margin-top: 15px;
+    width: 140px;
+    font-size: 20px;
+    font-family: math;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    left: 70px;
+    font-weight: bolder;
+}
+h3#number {
+    position: relative;
+    right: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: red;
+    border-radius: 100px;
+    width: 30px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+table#notify-table {
+    border: 0px;
+    background-color: gainsboro;
+    border-radius: 20px;
+    padding: 10px;
+}
+td {
+    display: inline-block;
+    width: 400px;
+    font-size: 25px;
+    font-family: math;
+    margin: 10px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+div#chat_form {
+    display: flex;
+    justify-content: center;
+}
+form#form {
+    min-height: 300px;
+    width: 500px;
+    background-color: gainsboro;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-radius: 20px;
+}
+p {
+    font-size: 20px;
+    font-family: math;
+    font-weight: bolder;
+}
+input#form_input {
+    height: 40px;
+    width: 150px;
+    font-size: 20px;
+    font-family: math;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+
+}
+ul.errorlist.nonfield {
+    font-size: 20px;
+    font-family: math;
+    font-weight: bolder;
+}
+h2#message {
+    display: flex;
+    background-color: darkkhaki;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-family: math;
+    border-radius: 60px;
+    margin-bottom: 0px;
+}
+h2#request {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkkhaki;
+    width: 1000px;
+    border-radius: 40px;
+    font-family: math;
+    height: 60px;
+    margin-top: 0px;
+}
+a#req_link {
+    display: flex;
+    margin-left: 30px;
+    text-decoration-line: blink;
+    font-size: 20px;
+    color: black;
+    background-color: whitesmoke;
+    height: 40px;
+    justify-content: center;
+    align-self: center;
+    padding-top: 20px;
+    width: 300px;
+    border-radius: 20px;
+}
+a#home {
+    display: flex;
+    background-color: gainsboro;
+    height: 40px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    text-decoration-line: none;
+    font-size: 20px;
+    font-family: math;
+    color: black;
+    font-weight: bolder;
+    margin-top: 10px;
+    border-radius: 20px;
+}

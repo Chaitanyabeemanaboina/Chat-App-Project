@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'chat.css' %}">
+</head>
+<body align="center">
+    <h1 id="head"> Chat </h1>
+    <div id="name">
+    <h2 id="status"></h2>
+        </div>
+    <div id="chat_css">
+    <div id="chat"></div>
+        </div>
+    <div id="chat_inp">
+    <input id="chat_input" type="text" size="100">
+    <input id="chat_button" type="button" value="Send">
+    <input id="image" type="file" >
+    <button id="img_button">Send image</button>
+        </div>
+    <script type="text/javascript">
+        const roomName = "{{ room_name }}";
+        const username = "{{ username }}";
+        const status = "{{ status }}";
+        const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/?username=${username}&status=${status}`);
+
+        chatSocket.onmessage = function(e) {
+            let data = JSON.parse(e.data);
+            let chat_messages = document.getElementById("chat");
+            let chat_status = document.getElementById("status");
+
+            if (data.type === "previous_messages") {
+                    for (const [key, value] of Object.entries(data.status)) {
+                        chat_status.innerHTML += `${key}: ${value}<br>`;
+                    }
+                data.messages.forEach(msg => {
+                    if (msg.image){
+                       const img = `${msg.username}: <img src="${msg.image}" alt="Image" height="200px" width="400px" />`;
+                       chat_messages.innerHTML += '<br>' + img;
+                    } else if (msg.message){
+                       chat_messages.innerHTML += `<br>${msg.username}: ${msg.message}`;
+                    }
+
+                });
+
+            } else if (data.type === "image") {
+                    console.log(data.url)
+                    const img = `${data.username}: <img src="${data.url}" alt="Image" height="200px" width="400px" />`;
+
+                    console.log(img)
+                    chat_messages.innerHTML += '<br>' + img;
+            } else {
+                chat_messages.innerHTML += `<br>${data.username}: ${data.message}`;
+
+            }
+        }
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        }
+
+        document.querySelector("#chat_button").onclick = function(e) {
+            const input_message = document.getElementById("chat_input");
+            const msg = input_message.value;
+            chatSocket.send(JSON.stringify({
+                'message': msg
+            }));
+            input_message.value = '';
+        }
+
+        document.getElementById("img_button").onclick = function(event) {
+                let file = document.getElementById("image");
+                let image = file.files[0];
+
+                if (image) {
+                    const img_reader = new FileReader();
+                    img_reader.readAsArrayBuffer(image);
+                    img_reader.onload = function(event) {
+                        const arrayBuffer = event.target.result;
+                        chatSocket.send(arrayBuffer);
+                    };
+                }
+        };
+    </script>
+ <br><a id="home" href="/index/">Home</a>
+</body>
+</html>

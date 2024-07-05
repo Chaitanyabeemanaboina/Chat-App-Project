@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'index_page.css' %}">
+</head>
+<body align="center">
+<div id="navbar" >
+    <h1 id="name">C-Chat</h1>
+    <h3 id="welcome">Welcome to C-Chat {{user}}</h3>
+     <a id="logout" href="/auth">Log out</a>
+    <input type="submit" id="notify" value="notifications" >
+    <h3 id="number"></h3>
+</div>
+<div id="chat_form">
+<form id="form" method="post" >
+    {{form.as_p}}
+    {% csrf_token %}
+    <input id="form_input" type="submit" value="submit">
+    </form>
+</div>
+    <br>
+
+    {% if message %}
+    {% for msg in message %}
+    <h2 id="message"> {{msg}} </h2><br>
+    {% endfor %}
+    {% endif %}
+    {% if value %}
+        {% for key,value in request_dict.items %}
+            {% for name in value %}
+        <div id="main_{{key.room_name}}">
+            <h2 id="request">{{name}} is requesting to join the {{key.room_name}} group <a id="req_link" class="req_class" name="{{name}}*{{key.room_name}}" href="#">Accept Request</a> </h2>
+        </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+<br><br>
+<div align="center">
+    <table id="notify-table" border="3">
+    <thead id="head">
+
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+    <a id="home" href="/index">Home</a>
+</div>
+<script type="text/javascript">
+       fetch("/notify", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let no_notify = document.getElementById("number");
+                    console.log(data.sum);
+                    no_notify.innerHTML = `${data.sum}`;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+    document.getElementById("notify").addEventListener("click", function(event) {
+        fetch("/notify", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                let tableBody = document.querySelector('#notify-table tbody');
+                tableBody.innerHTML = ''; // Clear existing rows
+                data.act2.forEach(item => {
+                    let Trow = document.createElement('tr');
+                    Trow.innerHTML = `<td>Group : ${item.room_name}</td><td>Notification : ${item.notification}</td>`;
+                    tableBody.appendChild(Trow);
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+document.querySelectorAll('.req_class').forEach(item => {
+    item.addEventListener('click', function(event) {
+        event.preventDefault();
+        const name = this.getAttribute('name').split('*')[0];
+        const room_name = this.getAttribute('name').split('*')[1];
+        fetch(`/request_msg/${name}/${room_name}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const main = document.getElementById(`main_${room_name}`);
+                main.remove();
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+
+</script><br>
+
+</body>
+</html>
+
