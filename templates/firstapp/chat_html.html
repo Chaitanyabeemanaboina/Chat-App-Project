@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'chat.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'chat_page.css' %}">
 </head>
 <body align="center">
     <h1 id="head"> Chat </h1>
@@ -21,6 +21,7 @@
     <button id="img_button">Send image</button>
         </div>
     <script type="text/javascript">
+        const currentUser = "{{ username }}";
         const roomName = "{{ room_name }}";
         const username = "{{ username }}";
         const status = "{{ status }}";
@@ -32,30 +33,38 @@
             let chat_status = document.getElementById("status");
 
             if (data.type === "previous_messages") {
-                    for (const [key, value] of Object.entries(data.status)) {
-                        chat_status.innerHTML += `${key}: ${value}<br>`;
-                    }
+                for (const [key, value] of Object.entries(data.status)) {
+                    chat_status.innerHTML += `${key}: ${value}<br>`;
+                }
                 data.messages.forEach(msg => {
                     if (msg.image){
+                       const inner_chat = document.createElement("div")
+                       inner_chat.className = 'message ' + ( msg.username === currentUser ? 'user' : 'other' )
                        const img = `${msg.username}: <img src="${msg.image}" alt="Image" height="200px" width="400px" />`;
-                       chat_messages.innerHTML += '<br>' + img;
+                       inner_chat.innerHTML += '<br>' + img;
+                       chat_messages.appendChild(inner_chat);
                     } else if (msg.message){
-                       chat_messages.innerHTML += `<br>${msg.username}: ${msg.message}`;
+                       const inner_chat = document.createElement("div")
+                       inner_chat.className = 'message ' + ( msg.username === currentUser ? 'user' : 'other' )
+                       inner_chat.innerHTML += `<br>${msg.username}: ${msg.message}`;
+                       chat_messages.appendChild(inner_chat);
                     }
-
                 });
 
             } else if (data.type === "image") {
-                    console.log(data.url)
+                    const inner_chat = document.createElement("div")
+                    inner_chat.className = 'message ' + ( data.username === currentUser ? 'user' : 'other' )
                     const img = `${data.username}: <img src="${data.url}" alt="Image" height="200px" width="400px" />`;
-
-                    console.log(img)
-                    chat_messages.innerHTML += '<br>' + img;
+                    inner_chat.innerHTML += '<br>' + img;
+                    chat_messages.appendChild(inner_chat);
             } else {
-                chat_messages.innerHTML += `<br>${data.username}: ${data.message}`;
-
+                const inner_chat = document.createElement("div")
+                inner_chat.className = 'message ' + ( data.username === currentUser ? 'user' : 'other' )
+                inner_chat.innerHTML += `<br>${data.username}: ${data.message}`;
+                chat_messages.appendChild(inner_chat);
             }
         }
+
 
         chatSocket.onclose = function(e) {
             console.error('Chat socket closed unexpectedly');
@@ -87,3 +96,57 @@
  <br><a id="home" href="/index/">Home</a>
 </body>
 </html>
+<!--const img = `${msg.username}: <img src="${msg.image}" alt="Image" height="200px" width="400px" />`;-->
+<!--                       chat_messages.innerHTML += '<br>' + img;-->
+
+<!--chat_messages.innerHTML += `<br>${msg.username}: ${msg.message}`;-->
+
+<!--const img = `${data.username}: <img src="${data.url}" alt="Image" height="200px" width="400px" />`;-->
+<!--                    chat_messages.innerHTML += '<br>' + img;-->
+
+<!--chat_messages.innerHTML += `<br>${data.username}: ${data.message}`;-->
+
+<!--const currentUser = "{{ username }}";-->
+<!--        const roomName = "{{ room_name }}";-->
+<!--        const username = "{{ username }}";-->
+<!--        const status = "{{ status }}";-->
+<!--        const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/?username=${username}&status=${status}`);-->
+
+<!--        chatSocket.onmessage = function(e) {-->
+<!--            let data = JSON.parse(e.data);-->
+<!--            let chat_messages = document.getElementById("chat");-->
+<!--            let chat_status = document.getElementById("status");-->
+
+<!--            if (data.type === "previous_messages") {-->
+<!--                    for (const [key, value] of Object.entries(data.status)) {-->
+<!--                        chat_status.innerHTML += `${key}: ${value}<br>`;-->
+<!--                    }-->
+<!--                data.messages.forEach(msg => {-->
+<!--                    if (msg.image){-->
+<!--                       const inner_chat = document.createElement("div")-->
+<!--                       inner_chat.className = 'message' + ( msg.username === currentUser ? 'user' : 'other' )-->
+<!--                       const img = `${msg.username}: <img src="${msg.image}" alt="Image" height="200px" width="400px" />`;-->
+<!--                       inner_chat.innerHTML += '<br>' + img;-->
+<!--                       chat_messages.appendChild(inner_chat);-->
+<!--                    } else if (msg.message){-->
+<!--                       const inner_chat = document.createElement("div")-->
+<!--                       inner_chat.className = 'message' + ( msg.username === currentUser ? 'user' : 'other' )-->
+<!--                       inner_chat.innerHTML += `<br>${msg.username}: ${msg.message}`;-->
+<!--                       chat_messages.appendChild(inner_chat);-->
+<!--                    }-->
+
+<!--                });-->
+
+<!--            } else if (data.type === "image") {-->
+<!--                    const inner_chat = document.createElement("div")-->
+<!--                    inner_chat.className = 'message' + ( data.username === currentUser ? 'user' : 'other' )-->
+<!--                    const img = `${data.username}: <img src="${data.url}" alt="Image" height="200px" width="400px" />`;-->
+<!--                    inner_chat.innerHTML += '<br>' + img;-->
+<!--                    chat_messages.appendChild(inner_chat);-->
+<!--            } else {-->
+<!--                const inner_chat = document.createElement("div")-->
+<!--                inner_chat.className = 'message' + ( data.username === currentUser ? 'user' : 'other' )-->
+<!--                inner_chat.innerHTML += `<br>${data.username}: ${data.message}`;-->
+<!--                chat_messages.appendChild(inner_chat);-->
+<!--            }-->
+<!--        }-->

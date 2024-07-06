@@ -34,8 +34,8 @@ input#image {
 button#img_button {
     position: relative;
     top: 45px;
-    right: 268px;
-    width: 150px;
+    right: 266px;
+    width: 157px;
 }
 a#home {
     position: relative;
@@ -70,6 +70,14 @@ div#chat {
     border-radius: 10px;
     background-color: azure;
 }
+.message.user {
+    text-align: left;
+    margin-left: 30px;
+}
+.message.other {
+    text-align: right;
+    margin-right: 30px;
+}
 a#home {
     display: inline-block;
     position: relative;
@@ -88,10 +96,4 @@ a#home {
 h1#head {
     background-color: darkgray;
     font-family: system-ui;
-}
-message.user{
-    text-align = left;
-}
-message.other{
-    text-align = right;
 }
