@@ -4,6 +4,8 @@ from .models import Message,Activity
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+@login_required
 def index(request):
     form = Index_form()
     if request.method == 'POST':
@@ -44,6 +46,7 @@ def index(request):
 create = ""
 search = ""
 status_grp = ""
+@login_required
 def chat_view(request):
     create = request.session['create_group']
     search = request.session['search_group']
@@ -122,7 +125,7 @@ def chat_view(request):
             status = status_grp
             return render(request, 'firstapp/chat_html.html',
                               {'room_name': room_name, 'username': username, 'status': status})
-
+@login_required
 def request_msg(request,name=None,room=None):
     msg = Message.objects.filter(room_name=room,username=request.user,admin=True)
     for m in msg:
@@ -206,7 +209,7 @@ def grps_with_users(current_user):
                     users.append(objs.username)
             dict_grps[i] = users
     return dict_grps
-
+@login_required
 def notification(request):
     Activity.objects.all().delete()
     current_user = request.user

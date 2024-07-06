@@ -49,7 +49,7 @@ class Fg_username(forms.Form):
     def clean(self):
         total_data = super().clean()
         p1 = total_data['username']
-        msg = Message.objects.filter(username=p1)
+        msg = User.objects.filter(username=p1)
         if not len(msg) > 0 :
             raise forms.ValidationError("there is no user with this username, try again or Sign up again")
 
