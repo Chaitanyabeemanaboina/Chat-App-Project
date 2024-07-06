@@ -68,7 +68,7 @@ div#chat {
     font-family: system-ui;
     font-weight: 800;
     border-radius: 10px;
-    background-color: azure;
+    background-color: #8fbc8feb;
 }
 .message.user {
     text-align: left;
