@@ -1,5 +1,5 @@
 # Chat-App-Project
-- In this project,we achieved REAL-TIME COMMUNICATION due to the usage of WEBSOCKETS which are implemented by Django Channels .
+- In this project ,we achieved REAL-TIME COMMUNICATION due to the usage of WEBSOCKETS which are implemented by Django Channels .
 - What all does this project provide to a user:
   1. User can create a group specifying whether its PRIVATE or PUBLIC,
      if its PRIVATE only the user allowed by the admin will have access to the group,
