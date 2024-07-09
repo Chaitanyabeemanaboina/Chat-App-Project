@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 import re
 class Index_form(forms.Form):
     create_group = forms.CharField(max_length=40,required=False)
-    status = forms.CharField(max_length=40,required=False)
+    status = forms.CharField(max_length=40,required=False,label="Private/Public")
     search_group = forms.CharField(max_length=40,required=False)
     def clean(self):
         total_data = super().clean()

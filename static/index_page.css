@@ -172,3 +172,12 @@ a#home {
     margin-top: 10px;
     border-radius: 20px;
 }
+h1#pr_pub {
+    font-size: 20px;
+    font-family: math;
+    font-weight: bolder;
+    background-color: gainsboro;
+    width: 140px;
+    position: relative;
+    bottom: 270px;
+}
